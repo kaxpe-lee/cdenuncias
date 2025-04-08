@@ -4,9 +4,8 @@ namespace Database\Seeders;
 
 use App\Models\Conciencia;
 use App\Models\Estado;
+use App\Models\Relation;
 use App\Models\User;
-use App\Models\Relacion;
-use App\Models\Tercero;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -18,22 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
         // User::factory(10)->create();
-
-        User::factory()->create([
-            'name' => 'admin',
-            'surname' => '',
-            'email' => 'admin@admin.com',
-            'password' => bcrypt('password')
-        ]);
-
-        $this->call(EmpresaSeeder::class);
-
-        // User::factory(10)->create();
         Estado::insert([
-            ['nombre' => 'Iniciado'],
-            ['nombre' => 'En curso'],
-            ['nombre' => 'Procesada'],
-            ['nombre' => 'Inactivo'],
+            ['nombre' => 'Iniciado','descripcion' => 'Estado por defecto al dar de alta una denuncia'],
+            ['nombre' => 'En curso','descripcion' => 'Denuncia en curso'],
+            ['nombre' => 'Procesada','descripcion' => 'Denuncia concluida'],
+            ['nombre' => 'Inactivo','descripcion' => 'Denuncia inactiva'],
         ]);
 
         Conciencia::insert([
@@ -46,18 +34,20 @@ class DatabaseSeeder extends Seeder
             ['nombre' => 'Estaba investigando']
         ]);
 
-        Relacion::insert([
+        Relation::insert([
             ['nombre' => 'Empleado'],
             ['nombre' => 'Proveedor'],
             ['nombre' => 'Socio'],
             ['nombre' => 'Ex-empleado'],
             ['nombre' => 'Otros'],
         ]);
+        
+        $this->call(EmpresaSeeder::class);
 
-        Tercero::insert([
-            ['nombre' => 'Si'],
-            ['nombre' => 'No'],
-            ['nombre' => 'No sabe']
+        User::factory()->create([
+            'name' => 'Grupo Asesor Ros',
+            'email' => 'info@rosgrupoasesor.com',
+            'password' => bcrypt('garos2000?')
         ]);
     }
 }
